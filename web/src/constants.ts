@@ -1,1 +1,1 @@
-export const __PROD__: boolean = !(window as any).invokeNative;
+export const __PROD__: boolean = (window as any).invokeNative;

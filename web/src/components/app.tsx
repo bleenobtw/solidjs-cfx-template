@@ -1,5 +1,20 @@
 import { type Store, store, setStore } from "@/store";
 import { Show, createEffect } from "solid-js";
+import { __PROD__ } from "@/constants";
+
+if (!__PROD__) {
+  setTimeout(() => {
+    window.dispatchEvent(
+      new MessageEvent("message", {
+        data: {
+          action: "UPDATE_COORDS",
+          source: "interface",
+          data: { x: 23, y: 24, z: 534 },
+        },
+      }),
+    );
+  }, 2500);
+}
 
 export default function App() {
   createEffect(() => {
@@ -17,6 +32,7 @@ export default function App() {
       }
     };
 
+    window.addEventListener("message", handleMessage);
     return () => window.removeEventListener("message", handleMessage);
   });
 
